@@ -1,0 +1,1 @@
+ /Users/devanasoft/Desktop/flutter/inventorymanagement/.dart_tool/flutter_build/a43147229f4bf9472dad51350ab514f6/native_assets.yaml: 
