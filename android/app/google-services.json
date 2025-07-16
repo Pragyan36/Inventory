@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "821995884235",
+    "project_id": "nepstocky",
+    "storage_bucket": "nepstocky.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821995884235:android:462e1e41b384f154da954e",
+        "android_client_info": {
+          "package_name": "com.example.inventorymanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwRM3VlWWj_yVefjnKiq8z5THyH9Z_29Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
