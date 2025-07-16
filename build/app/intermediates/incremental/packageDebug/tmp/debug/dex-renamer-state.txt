@@ -1,4 +1,4 @@
-#Wed Jul 09 14:30:03 NPT 2025
+#Wed Jul 16 14:19:40 NPT 2025
 base.0=/Users/devanasoft/Desktop/flutter/inventorymanagement/build/app/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/devanasoft/Desktop/flutter/inventorymanagement/build/app/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
 base.2=/Users/devanasoft/Desktop/flutter/inventorymanagement/build/app/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex

@@ -160,10 +160,11 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
 import 'package:inventorymanagement/feature/items/model/additems_model.dart';
 import 'package:inventorymanagement/feature/provider/items_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
 
 class Menus extends StatefulWidget {
   const Menus({super.key});
@@ -175,38 +176,37 @@ class Menus extends StatefulWidget {
 class _MenusState extends State<Menus> {
   // Store selected color per item ID
   final Map<String, Color> _selectedColors = {};
-
-  // Show color picker bottom sheet
   void _showColorPicker(BuildContext context, String itemId) {
-    Color pickerColor = _selectedColors[itemId] ?? Colors.white;
+    Color currentColor = _selectedColors[itemId] ?? Colors.white;
+    HSVColor tempColor = HSVColor.fromColor(currentColor);
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Pick a color'),
-          content: SingleChildScrollView(
-            child: BlockPicker(
-              // or use ColorPicker for HSV/RGB sliders
-              pickerColor: pickerColor,
-              onColorChanged: (Color color) {
-                pickerColor = color;
+          content: SizedBox(
+            height: 300,
+            child: HSVPicker(
+              color: tempColor,
+              onChanged: (value) {
+                tempColor = value;
               },
             ),
           ),
           actions: [
             TextButton(
-              child: const Text('Cancel'),
               onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
             ),
             ElevatedButton(
-              child: const Text('Select'),
               onPressed: () {
                 setState(() {
-                  _selectedColors[itemId] = pickerColor;
+                  _selectedColors[itemId] = tempColor.toColor();
                 });
                 Navigator.of(context).pop();
               },
+              child: const Text('Select'),
             ),
           ],
         );

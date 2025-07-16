@@ -8,14 +8,22 @@ import 'package:inventorymanagement/feature/profile/screen/ui/profile_screen.dar
 import 'package:inventorymanagement/feature/search/ui/screen/search_page.dart';
 
 class DashbaordScreen extends StatefulWidget {
-  const DashbaordScreen({super.key});
+  final int initialIndex;
+
+  const DashbaordScreen({super.key, this.initialIndex = 0});
 
   @override
   State<DashbaordScreen> createState() => _DashbaordScreenState();
 }
 
 class _DashbaordScreenState extends State<DashbaordScreen> {
-  int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+  }
+
+  late int _currentIndex;
   final screens = [
     const HomePage(),
     const Items(),

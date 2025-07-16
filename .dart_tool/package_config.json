@@ -158,6 +158,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "flutter_hsvcolor_picker",
+      "rootUri": "file:///Users/devanasoft/.pub-cache/hosted/pub.dev/flutter_hsvcolor_picker-1.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/devanasoft/.pub-cache/hosted/pub.dev/flutter_lints-5.0.0",
       "packageUri": "lib/",
@@ -446,7 +452,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-07-16T05:19:30.849712Z",
+  "generated": "2025-07-16T08:29:57.971458Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/devanasoft/Documents/flutter",

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:inventorymanagement/common/constant/Textstyle.dart';
 import 'package:inventorymanagement/common/constant/assets.dart';
@@ -62,13 +63,25 @@ class _AddItemState extends State<AddItem> {
   //     }
   //   }
   // }
-  Future<void> _pickImageFromGallery() async {
-    final file = await CloudinaryHelper.pickImageFromGallery();
-    if (file != null) {
+  void pickAndUploadImage() async {
+    File? image = await CloudinaryHelper.pickImage(ImageSource.gallery);
+    print("this is image::$image");
+    if (image != null) {
       setState(() {
-        _imageFile = file;
+        _imageFile = image; // 🖼️ Update preview
       });
-      additemsProvider.setImageFile(file);
+
+      final imageUrl = await CloudinaryHelper.uploadImage(image);
+      if (imageUrl != null) {
+        setState(() {
+          _uploadedImageUrl = imageUrl;
+        });
+
+        additemsProvider.imageUrl = imageUrl; // ✅ Save to provider
+        print("✅ Uploaded URL: $imageUrl");
+      } else {
+        print("❌ Upload failed");
+      }
     }
   }
 
@@ -178,7 +191,7 @@ class _AddItemState extends State<AddItem> {
                     color: Colors.white12,
                     alignment: Alignment.center,
                     child: GestureDetector(
-                      onTap: _pickImageFromGallery,
+                      onTap: pickAndUploadImage,
                       child: _imageFile != null
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(12),
@@ -216,6 +229,7 @@ class _AddItemState extends State<AddItem> {
               const SizedBox(height: 20),
 
               buildLabeledField(
+                isNumber: true,
                 label: "Quantity",
                 controller: additemstate.quantityController,
                 validator: (v) =>
@@ -256,8 +270,7 @@ class _AddItemState extends State<AddItem> {
                           const TextStyle(color: Colors.white70, fontSize: 16),
                     ),
                     Icon(Icons.calculate_outlined,
-                        color: Colors.white70,
-                        size: 25), // 💡 change icon as needed
+                        color: Colors.white70, size: 25),
                   ],
                 ),
               ),

@@ -29,11 +29,22 @@ class ItemList extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                item['image'] ?? Assets.momo,
+              child: Image.network(
+                item['image'] ??
+                    Assets
+                        .momo, // fallback to local asset path only if URL is null
                 height: 80,
                 width: 80,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  // Fallback if image URL is invalid or fails to load
+                  return Image.asset(
+                    Assets.momo,
+                    height: 80,
+                    width: 80,
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
             ),
             const SizedBox(width: 20),

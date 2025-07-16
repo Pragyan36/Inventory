@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:inventorymanagement/feature/dashboard/ui/screen/dashboard.dart';
 import 'package:inventorymanagement/feature/items/model/additems_model.dart';
 import 'package:inventorymanagement/feature/items/model/price_model.dart';
-import 'package:inventorymanagement/feature/items/ui/screen/items.dart';
 
 class AdditemsProvider extends ChangeNotifier {
   String capitalizeWords(String input) {
@@ -12,6 +11,23 @@ class AdditemsProvider extends ChangeNotifier {
       if (word.isEmpty) return '';
       return word[0].toUpperCase() + word.substring(1).toLowerCase();
     }).join(' ');
+  }
+
+  void clearData() {
+    nameController.clear();
+    quantityController.clear();
+    wholesalepriceController.clear();
+    sellingpriceController.clear();
+    unitController.clear();
+    expireDateController.clear();
+
+    itemType = 'Good';
+    selectedCategory = 'Food';
+    isReturnable = false;
+    isMenus = false;
+    isActive = false;
+
+    notifyListeners();
   }
 
   final TextEditingController nameController = TextEditingController();
@@ -34,7 +50,7 @@ class AdditemsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  File? imageFile; // Add this
+  File? imageFile;
 
   void setImageFile(File file) {
     imageFile = file;
@@ -59,16 +75,20 @@ class AdditemsProvider extends ChangeNotifier {
       createdAt: DateTime.now().toIso8601String(),
       imagePath: imageUrl,
     );
+    print("Sending item to Firebase: ${item.toJson()}");
 
     try {
       await FirebaseFirestore.instance.collection('items').add(item.toJson());
       debugPrint("Item added to Firestore successfully!");
 
       if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Items()),
-        );
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DashbaordScreen(initialIndex: 1),
+              ));
+        });
       }
     } catch (e) {
       debugPrint("Error adding item to Firestore: $e");

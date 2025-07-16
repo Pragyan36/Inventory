@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:inventorymanagement/common/constant/Textstyle.dart';
 
 Widget buildLabeledField({
@@ -9,6 +10,7 @@ Widget buildLabeledField({
   String? imagePath,
   VoidCallback? onSuffixTap,
   bool obscureText = false,
+  bool isNumber = false,
   void Function(String)? onChanged,
 }) {
   return Column(
@@ -16,6 +18,9 @@ Widget buildLabeledField({
     children: [
       Text(label, style: authTitleStyle),
       TextFormField(
+        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+        inputFormatters:
+            isNumber ? [FilteringTextInputFormatter.digitsOnly] : [],
         controller: controller,
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
